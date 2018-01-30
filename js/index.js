@@ -40,23 +40,43 @@ $(document).ready(function () {
         var tdNome = par.children("td:nth-child(2)");
         var tdEmail = par.children("td:nth-child(3)");
         var tdTelefone = par.children("td:nth-child(4)");
+        
+        if(i == 0){
 
-        if(i==0){
-
-            tdNome.html("<input type='text' id='nome' value='"+tdNome.html()+"'/>");
-            tdEmail.html("<input type='text' id='email' value='"+tdEmail.html()+"'/>");
-            tdTelefone.html("<input type='text' id='telefone' value='"+tdTelefone.html()+"'/>");
+            tdNome.html("<input class='editted' type='text' id='nome' name='nome' value='"+tdNome.html()+"'>");
+            tdEmail.html("<input class='editted' type='text' id='email' name='email' value='"+tdEmail.html()+"'>");
+            tdTelefone.html("<input class='editted' type='text' id='telefone' name='telefone' value='"+tdTelefone.html()+"'>");
 
             i=1;
 
         }
-        else{
+        else if(i===1){
 
-            tdNome.html(tdNome.children("input[type=text]").val());
-            tdEmail.html(tdEmail.children("input[type=text]").val());
-            tdTelefone.html(tdTelefone.children("input[type=text]").val());
+            var Nome = tdNome.children("input[type=text]").val();
+            $(this).closest("input[name=nome]").val(Nome);
+            tdNome.append(Nome);
 
-            i=0;
+            var Email = tdEmail.children("input[type=text]").val();
+            $(this).closest("input[name=email]").val(Email);
+            tdEmail.append(Email);
+            
+            var Telefone = tdTelefone.children("input[type=text]").val();
+            $(this).closest("input[name=telefone]").val(Telefone);
+            tdTelefone.append(Telefone);
+            $(".editted").prop('type', 'hidden');
+            
+            i=2;
+        }
+        
+        else if(i==2){
+            $(".editted").prop('type', 'text');
+            
+            tdNome.html("<input class='editted' type='text' id='nome' name='nome' value='"+tdNome.children("input[type=text]").val()+"'>");
+            tdEmail.html("<input class='editted' type='text' id='email' name='email' value='"+tdEmail.children("input[type=text]").val()+"'>");
+            tdTelefone.html("<input class='editted' type='text' id='telefone' name='telefone' value='"+tdTelefone.children("input[type=text]").val()+"'>");
+
+            
+            i=1;
         }
 
         console.log(i);

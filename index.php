@@ -24,52 +24,54 @@ include "php/pedido.php";
     </head>
 
     <body>
-            <button class="usuario"> Usuários </button>
-            <button class="produtos"> Produtos </button>
-            <button class="pedidos"> Pedidos </button>
+        <button class="usuario"> Usuários </button>
+        <button class="produtos"> Produtos </button>
+        <button class="pedidos"> Pedidos </button>
 
+        <form role="form" action="php/atualizausu.php" method="post" class="TabelaUsuarios" id="FormTabelaUsuarios">
+            <!--Tabela de usuarios -->
+            <table>
 
-        <!--Tabela de usuarios -->
-        <table class="TabelaUsuarios">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nome</th>
+                        <th>E-mail</th>
+                        <th>Telefone</th>
+                        <th>Excluir</th>
+                        <th>Atualizar</th>
+                    </tr>    
+                </thead>
 
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nome</th>
-                    <th>E-mail</th>
-                    <th>Telefone</th>
-                    <th>Excluir</th>
-                    <th>Atualizar</th>
-                </tr>    
-            </thead>
+                <tbody>
+                    <?php
+                    $cont = 0;
+                    while($cont < $contadorUsuario){
+                        echo"<tr>";
+                        echo("<td>$IDusuario[$cont]</td>");
+                        echo("<td class='campo'>$nomeUsuario[$cont]</td>");
+                        echo("<td class='campo'>$email[$cont]</td>");
+                        echo("<td class='campo'>$telefone[$cont]</td>");
+                        echo("<td><i class='material-icons Deletar'>delete_forever</i></td>");
+                        echo("<td><button type='button' class='Update'> Atualizar </button></td>");
+                        echo"</tr>";
+                        $cont ++;
+                    }
+                    ?>
+                </tbody>
 
-            <tbody>
-                <?php
-                $cont = 0;
-                while($cont < $contadorUsuario){
-                    echo"<tr>";
-                    echo("<td>$IDusuario[$cont]</td>");
-                    echo("<td>$nomeUsuario[$cont]</td>");
-                    echo("<td class='campo'>$email[$cont]</td>");
-                    echo("<td class='campo'>$telefone[$cont]</td>");
-                    echo("<td><i class='material-icons Deletar'>delete_forever</i></td>");
-                    echo("<td><button class='Update'> Atualizar </button></td>");
-                    echo"</tr>";
-                    $cont ++;
-                }
-                ?>
-            </tbody>
-
-        </table>
-
+            </table>
+            
+        </form>
         <!--Formulario adicionar usuarios -->
         <form role="form" action="php/registra.php" method="post" class="TabelaUsuarios" id="FormUsuarios">
             <input type="email" placeholder="E-mail" name="email" required>
             <input placeholder="Nome" name="nome" value="Jonas" required>
             <input placeholder="Telefone" name="telefone">
         </form>
-        <!--Botão enviar formulário -->
+        <!--Botão enviar formulário de adição -->
         <button class="TabelaUsuarios" type="submit" form="FormUsuarios" value="Submit">Novo usuário</button>
+        <button class="TabelaUsuarios" type="submit" form="FormTabelaUsuarios" value="Submit">Salvar mudanças</button>
 
         <!--Tabela de produtos -->
         <table class="TabelaProdutos">
@@ -103,7 +105,7 @@ include "php/pedido.php";
             </tbody>
 
         </table>
-        
+
         <!--Formulario adicionar produtos -->
         <form role="form" action="php/adicionaproduto.php" method="post" class="TabelaProdutos" id="FormProdutos">
             <input placeholder="Nome" name="nome" required>
