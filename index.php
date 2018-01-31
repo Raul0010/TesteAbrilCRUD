@@ -21,8 +21,8 @@ include "php/pedido.php";
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <!-- Jquery google -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        
-         <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js "
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js "
                 integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb "
                 crossorigin="anonymous "></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.js"></script>
@@ -66,7 +66,7 @@ include "php/pedido.php";
                 </tbody>
 
             </table>
-            
+
         </form>
         <!--Formulario adicionar usuarios -->
         <form role="form" action="php/registra.php" method="post" class="TabelaUsuarios" id="FormUsuarios">
@@ -76,76 +76,118 @@ include "php/pedido.php";
         </form>
         <!--Botão enviar formulário de adição -->
         <button class="TabelaUsuarios" type="submit" form="FormUsuarios" value="Submit">Novo usuário</button>
+
+        <!--Botão salvar tabela clientes -->
         <button class="TabelaUsuarios" id="Envia" type="submit" form="FormTabelaUsuarios">Salvar mudanças</button>
 
         <!--Tabela de produtos -->
-        <table class="TabelaProdutos">
 
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nome</th>
-                    <th>Descrição</th>
-                    <th>Preço</th>
-                    <th>Excluir</th>
-                    <th>Atualizar</th>
-                </tr>    
-            </thead>
+        <form role="form" method="post" action="php/atualizaprod.php" class="TabelaProdutos" id="FormTabelaProdutos">
 
-            <tbody>
-                <?php
-                $cont = 0;
-                while($cont < $contadorProduto){
-                    echo"<tr>";
-                    echo("<td>$IDproduto[$cont]</td>");
-                    echo("<td>$nomeProduto[$cont]</td>");
-                    echo("<td>$descricao[$cont]</td>");
-                    echo("<td>$preco[$cont]</td>");
-                    echo("<td><i class='material-icons Deletar'>delete_forever</i></td>");
-                    echo("<td><button class='Update'> Atualizar </button></td>");
-                    echo"</tr>";
-                    $cont ++;
-                }
-                ?>
-            </tbody>
+            <table class="TabelaProdutos">
 
-        </table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nome</th>
+                        <th>Descrição</th>
+                        <th>Preço</th>
+                        <th>Excluir</th>
+                        <th>Atualizar</th>
+                    </tr>    
+                </thead>
+
+                <tbody>
+                    <?php
+                    $cont = 0;
+                    while($cont < $contadorProduto){
+                        echo"<tr>";
+                        echo("<td><input type='hidden' value='$IDproduto[$cont]' name='ID[]' class='ID'>$IDproduto[$cont]</td>");
+                        echo("<td>$nomeProduto[$cont]</td>");
+                        echo("<td>$descricao[$cont]</td>");
+                        echo("<td>$preco[$cont]</td>");
+                        echo("<td><i class='material-icons DeletarProd'>delete_forever</i></td>");
+                        echo("<td><button type='button' class='UpdateProd'> Atualizar </button></td>");
+                        echo"</tr>";
+                        $cont ++;
+                    }
+                    ?>
+                </tbody>
+
+            </table>
+        </form>
 
         <!--Formulario adicionar produtos -->
         <form role="form" action="php/adicionaproduto.php" method="post" class="TabelaProdutos" id="FormProdutos">
             <input placeholder="Nome" name="nome" required>
             <input placeholder="Descrição" name="descricao" required>
-            <input placeholder="Preço" name="preco">
+            <input placeholder="Preço" name="preco" required>
         </form>
-        <!--Botão enviar formulário -->
+        <!--Botão enviar formulário de adição -->
         <button class="TabelaProdutos" type="submit" form="FormProdutos" value="Submit">Novo Produto</button>
 
+        <!--Botão salvar tabela produtos -->
+        <button class="TabelaProdutos" id="Envia" type="submit" form="FormTabelaProdutos">Salvar mudanças</button>
+
         <!--Tabela de pedidos -->
-        <table class="TabelaPedidos">
+        <form role="form" method="post" action="php/atualizapedido.php" class="TabelaPedidos" id="FormTabelaPedidos">
 
-            <thead>
-                <tr>
-                    <th>ID do Cliente</th>
-                    <th>ID do Produto</th>
-                    <th>Excluir</th>
-                </tr>    
-            </thead>
+            <table class="TabelaPedidos">
 
-            <tbody>
+                <thead>
+                    <tr>
+                        <th>ID do Cliente</th>
+                        <th>ID do Produto</th>
+                        <th>Excluir</th>
+                    </tr>    
+                </thead>
+
+                <tbody>
+                    <?php
+                    $cont = 0;
+                    while($cont < $contadorPedido){
+                        echo"<tr>";
+                        echo("<td><input type='hidden' value='$IDcliente[$cont]' name='ID[]' class='ID'>$IDcliente[$cont]</td>");
+                        echo("<td>$IDdoproduto[$cont]</td>");
+                        echo("<td><i class='material-icons DeletarPed'>delete_forever</i></td>");
+                        echo"</tr>";
+                        $cont ++;
+                    }
+                    ?>
+                </tbody>
+
+            </table>
+        </form>
+
+        <!--Formulario adicionar pedidos -->
+        <form role="form" action="php/adicionapedido.php" method="post" class="TabelaPedidos" id="FormPedidos">
+            <select name='IDcliente'>
+                <option value = '-1'>Selecione ID do cliente </option>
                 <?php
                 $cont = 0;
-                while($cont < $contadorPedido){
-                    echo"<tr>";
-                    echo("<td>$IDcliente[$cont]</td>");
-                    echo("<td>$IDdoproduto[$cont]</td>");
-                    echo("<td><i class='material-icons Deletar'>delete_forever</i></td>");
-                    echo"</tr>";
-                    $cont ++;
+                while($cont < $contadorUsuario){
+                    echo("<option value='$IDusuario[$cont]' >'$IDusuario[$cont]'</option>");
+                    $cont++;
                 }
                 ?>
-            </tbody>
+            </select>
+            <select name='IDdoproduto'>
+                <option value = '-1'>Selecione ID do produto </option>
+                <?php
+                $cont = 0;
+                while($cont < $contadorProduto){
+                    echo("<option value='$IDproduto[$cont]' >'$IDproduto[$cont]'</option>");
+                    $cont++;
+                }
+                ?>
+            </select>
+        </form>
+        <!--Botão enviar formulário de adição -->
+        <button class="TabelaPedidos" type="submit" form="FormPedidos" value="Submit">Novo Pedido</button>
+        
+        <!--Botão salvar tabela pedidos -->
+        <button class="TabelaPedidos" id="Envia" type="submit" form="FormTabelaPedidos">Salvar mudanças</button>
 
-        </table>
     </body>
 
     <!-- javascript do site -->
