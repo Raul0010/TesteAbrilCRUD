@@ -21,6 +21,11 @@ include "php/pedido.php";
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <!-- Jquery google -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        
+         <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js "
+                integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb "
+                crossorigin="anonymous "></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.js"></script>
     </head>
 
     <body>
@@ -28,7 +33,7 @@ include "php/pedido.php";
         <button class="produtos"> Produtos </button>
         <button class="pedidos"> Pedidos </button>
 
-        <form role="form" action="php/atualizausu.php" method="post" class="TabelaUsuarios" id="FormTabelaUsuarios">
+        <form role="form" method="post" action="php/atualizausu.php" class="TabelaUsuarios" id="FormTabelaUsuarios">
             <!--Tabela de usuarios -->
             <table>
 
@@ -48,7 +53,7 @@ include "php/pedido.php";
                     $cont = 0;
                     while($cont < $contadorUsuario){
                         echo"<tr>";
-                        echo("<td>$IDusuario[$cont]</td>");
+                        echo("<td><input type='hidden' value='$IDusuario[$cont]' name='ID[]' class='ID'>$IDusuario[$cont]</td>");
                         echo("<td class='campo'>$nomeUsuario[$cont]</td>");
                         echo("<td class='campo'>$email[$cont]</td>");
                         echo("<td class='campo'>$telefone[$cont]</td>");
@@ -71,7 +76,7 @@ include "php/pedido.php";
         </form>
         <!--Botão enviar formulário de adição -->
         <button class="TabelaUsuarios" type="submit" form="FormUsuarios" value="Submit">Novo usuário</button>
-        <button class="TabelaUsuarios" type="submit" form="FormTabelaUsuarios" value="Submit">Salvar mudanças</button>
+        <button class="TabelaUsuarios" id="Envia" type="submit" form="FormTabelaUsuarios">Salvar mudanças</button>
 
         <!--Tabela de produtos -->
         <table class="TabelaProdutos">
