@@ -139,17 +139,37 @@ include "php/pedido.php";
                         <th>ID do Cliente</th>
                         <th>ID do Produto</th>
                         <th>Excluir</th>
+                        <th>Atualizar</th>
                     </tr>    
                 </thead>
 
                 <tbody>
                     <?php
                     $cont = 0;
+                    $j = 0;
+                    $k = 0;
                     while($cont < $contadorPedido){
+                        $j=0;
+                        $k=0;
                         echo"<tr>";
-                        echo("<td><input type='hidden' value='$IDcliente[$cont]' name='ID[]' class='ID'>$IDcliente[$cont]</td>");
-                        echo("<td>$IDdoproduto[$cont]</td>");
+                        echo("<td><select id='ClienteRemove' class='Selecao' name='IDclienteadd[]'>");
+                        while($j < $contadorUsuario){
+                            echo("<option value='$IDusuario[$j]'>$IDusuario[$j]</option>");
+                            $j++;
+                        }
+                        echo("</select>");
+                        echo("<p class='TextoPedido TextoPedidoCliente'>$IDcliente[$cont]</p>
+                        </td>");
+                        echo("<td><select id='SelectProduto' class='Selecao' name='IDprodutoadd[]'>");
+                        while($k < $contadorProduto){
+                            echo("<option value='$IDproduto[$k]'>$IDproduto[$k]</option>");
+                            $k++;
+                        }
+                        echo("</select>");
+                        echo("<p class='TextoPedido TextoPedidoProduto'>$IDdoproduto[$cont]</p>
+                        </td>");
                         echo("<td><i class='material-icons DeletarPed'>delete_forever</i></td>");
+                        echo("<td><button type='button' class='UpdatePedidos'> Atualizar </button></td>");
                         echo"</tr>";
                         $cont ++;
                     }

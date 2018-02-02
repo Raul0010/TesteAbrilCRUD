@@ -1,4 +1,7 @@
 $(document).ready(function () {
+    
+    $(".Selecao").hide();
+    
     //Mostra site inicialmente apenas com os botões
     $(".TabelaUsuarios").hide();
     $(".TabelaProdutos").hide();
@@ -27,40 +30,39 @@ $(document).ready(function () {
 
     //Remove linha da tabela cliente
     $(".Deletar").click(function() {
-        
+
         var par = $(this).parent().parent(); //tr
         var tdID = par.children("td:nth-child(1)");
-        
+
         var ID = tdID.children("input[type=hidden]").val();
-        
+
         $("#FormTabelaUsuarios").append("<input type='hidden' value='"+ID+"' name='exclui[]' id='Exclui'>")
-        
+
         $(this).closest('tr').remove();
     });
-    
+
     //Remove linha da tabela produto
     $(".DeletarProd").click(function() {
-        
+
         var par = $(this).parent().parent(); //tr
         var tdID = par.children("td:nth-child(1)");
-        
+
         var ID = tdID.children("input[type=hidden]").val();
-        
+
         $("#FormTabelaProdutos").append("<input type='hidden' value='"+ID+"' name='exclui[]' id='Exclui'>")
-        
+
         $(this).closest('tr').remove();
     });
-    
+
     //Remove linha da tabela pedido
     $(".DeletarPed").click(function() {
         
-        var par = $(this).parent().parent(); //tr
-        var tdID = par.children("td:nth-child(1)");
-        
-        var ID = tdID.children("input[type=hidden]").val();
-        
-        $("#FormTabelaPedidos").append("<input type='hidden' value='"+ID+"' name='exclui[]' id='Exclui'>")
-        
+        var IDcliente = $(this).closest("tr").find(".TextoPedidoCliente").text();
+        var IDproduto = $(this).closest("tr").find(".TextoPedidoProduto").text();
+
+        $("#FormTabelaPedidos").append("<input type='hidden' value='"+IDcliente+"' name='excluiCliente[]' id='Exclui'>");
+        $("#FormTabelaPedidos").append("<input type='hidden' value='"+IDproduto+"' name='excluiProduto[]' id='Exclui'>");
+
         $(this).closest('tr').remove();
     });
 
@@ -78,15 +80,15 @@ $(document).ready(function () {
         var Nome = tdNome.children("input[type=text]").val();
         var Email = tdEmail.children("input[type=text]").val();
         var Telefone = tdTelefone.children("input[type=text]").val();
-        
+
         if(!Nome && !Email && !Telefone){
 
             tdNome.html("<input class='editted' type='text' id='nome' name='nome[]' value='"+tdNome.html()+"'>");
             tdEmail.html("<input class='editted' type='text' id='email' name='email[]' value='"+tdEmail.html()+"'>");
             tdTelefone.html("<input class='editted' type='text' id='telefone' name='telefone[]' value='"+tdTelefone.html()+"'>");
-            
+
             i = 1;
-            
+
         }
         else if(i===1){
 
@@ -96,7 +98,7 @@ $(document).ready(function () {
 
             tdTelefone.html("<input style='pointer-events: none' class='editted' type='text' id='telefone' name='telefone[]' value='"+Telefone+"'>");
             $(".editted").css('border', 'none');
-                        
+
             i=2;
         }
 
@@ -106,12 +108,12 @@ $(document).ready(function () {
             tdNome.html("<input class='editted' type='text' id='nome' name='nome[]' value='"+Nome+"'>");
             tdEmail.html("<input class='editted' type='text' id='email' name='email[]' value='"+Email+"'>");
             tdTelefone.html("<input class='editted' type='text' id='telefone' name='telefone[]' value='"+Telefone+"'>");
-            
+
             i=1;
         }
-        
+
     });
-    
+
     //Monta inputs para enviar para banco de dados da tabela Produtos
     $(".UpdateProd").click(function() {
 
@@ -123,15 +125,15 @@ $(document).ready(function () {
         var Nome = tdNome.children("input[type=text]").val();
         var Descricao = tdDescricao.children("input[type=text]").val();
         var Preco = tdPreco.children("input[type=text]").val();
-        
+
         if(!Nome && !Descricao && !Preco){
 
             tdNome.html("<input class='editted' type='text' id='nome' name='nome[]' value='"+tdNome.html()+"'>");
             tdDescricao.html("<input class='editted' type='text' id='descricao' name='descricao[]' value='"+tdDescricao.html()+"'>");
             tdPreco.html("<input class='editted' type='text' id='preco' name='preco[]' value='"+tdPreco.html()+"'>");
-            
+
             i = 1;
-            
+
         }
         else if(i===1){
 
@@ -141,7 +143,7 @@ $(document).ready(function () {
 
             tdPreco.html("<input style='pointer-events: none' class='editted' type='text' id='preco' name='preco[]' value='"+Preco+"'>");
             $(".editted").css('border', 'none');
-                        
+
             i=2;
         }
 
@@ -151,13 +153,28 @@ $(document).ready(function () {
             tdNome.html("<input class='editted' type='text' id='nome' name='nome[]' value='"+Nome+"'>");
             tdDescricao.html("<input class='editted' type='text' id='descricao' name='descricao[]' value='"+Descricao+"'>");
             tdPreco.html("<input class='editted' type='text' id='preco' name='preco[]' value='"+Preco+"'>");
-            
+
             i=1;
         }
+
+    });
+
+    //Monta inputs para enviar para banco de dados da tabela Pedidos
+    $(".UpdatePedidos").click(function() {
+
+        $(this).closest("tr").find(".TextoPedido").toggle();
+        $(this).closest("tr").find(".Selecao").toggle();
+        
+        var IDcliente = $(this).closest("tr").find("#ClienteRemove option:selected").text();
+        var IDproduto = $(this).closest("tr").find("#SelectProduto option:selected").text();
+                
+        $(this).closest("tr").find(".TextoPedidoCliente").text(IDcliente);
+        $(this).closest("tr").find(".TextoPedidoProduto").text(IDproduto);
+
         
     });
-    
-/* Ainda tem de atualizar a página para mostrar resultados
+
+    /* Ainda tem de atualizar a página para mostrar resultados
     function submitForm() {
         nome = [];
         email = [];
